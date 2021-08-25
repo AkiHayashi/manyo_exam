@@ -1,24 +1,33 @@
-# README
+<h1>Table Scheme</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<h2>Users</h2>
 
-Things you may want to cover:
+| カラム名        | データ型 | 
+| --------------- | -------- | 
+| user_name       | string   | 
+| email           | string   | 
+| password_digest | string   | 
+| admin           | boolean  | 
 
-* Ruby version 2.6.5
 
-* System dependencies
+<h2>Tsks</h2>
 
-* Configuration
+| カラム名    | データ型 | 
+| ----------- | -------- | 
+| title       | string   | 
+| description | string   | 
+| user_id(FK) | integer   |
 
-* Database creation
+<h2>Labels</h2>
 
-* Database initialization
+| カラム名   | データ型 | 
+| ---------- | -------- | 
+| label_name | string   | 
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+<h2>Labellings</h2>
 
-* Deployment instructions
-
-* ...
+| カラム名     | データ型 | 
+| ------------ | -------- | 
+| task_id(FK)  | integer  | 
+| label_id(FK) | integer  | 
