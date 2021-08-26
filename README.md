@@ -13,9 +13,9 @@
 <h2>Tsks</h2>
 
 | カラム名    | データ型 | 
-| ----------- | -------- | 
-| title       | string   | 
-| description | string   | 
+| ----------- | --------- | 
+| title       | string    | 
+| description | text      | 
 | user_id(FK) | integer   |
 
 <h2>Labels</h2>
