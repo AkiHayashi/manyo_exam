@@ -1,4 +1,9 @@
 require 'rails_helper'
+def basic_pass(path)
+  username = ENV["USER"] 
+  password = ENV["PASS"]
+  visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
+end
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:task) { 
     FactoryBot.create(:task, title: 'タスク１')
@@ -6,7 +11,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     FactoryBot.create(:task, title: 'タスク３') 
   }
   before do 
-    visit tasks_path
+    basic_pass visit tasks_path
   end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
@@ -40,7 +45,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '該当タスクの内容が表示される' do
         task1 = FactoryBot.create(:task, title: '詳細表示機能テスト用タスク')
         FactoryBot.create(:task, title: 'task2')
-        visit tasks_path
+        basic_pass visit tasks_path
         #all('tbody tr td')[2].click_on '詳細'
         find(".show-btn#{task1.id}").click
         expect(page).to have_content '詳細表示機能テスト用タスク'
