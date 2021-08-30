@@ -11,12 +11,12 @@
 | admin           | boolean  | 
 
 
-## Tsks
+## Tasks
 
 | カラム名    | データ型 | 
 | ----------- | --------- | 
 | title       | string    | 
-| description | text      | 
+| description | string    | 
 | user_id(FK) | integer   |
 
 ## Labels
