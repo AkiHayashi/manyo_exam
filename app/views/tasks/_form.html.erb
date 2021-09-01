@@ -23,6 +23,21 @@
     <%= form.text_area :description %>
   </div>
 
+  <div class="field">
+    <%= form.label :ステータス %>
+    <%= form.select :progress, Task.progresses.keys %>
+  </div>
+
+  <div class="field">
+    <%= form.label :終了期限 %>
+    <%= form.datetime_field :expired_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :優先順位 %>
+    <%= form.select :priority, Task.priorities.keys %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
