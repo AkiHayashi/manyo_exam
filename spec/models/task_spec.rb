@@ -20,4 +20,31 @@ describe 'タスクモデル機能', type: :model do
       end
     end
   end
+  describe '検索機能' do
+    let!(:task) { FactoryBot.create(:task, title: 'task', progress:"未着手")}
+    let!(:second_task) { FactoryBot.create(:second_task, title: "sample", progress:"着手中") }
+    let!(:third_task) { FactoryBot.create(:third_task, title: "task", progress:"完了") }
+    context 'scopeメソッドでタイトルのあいまい検索をした場合' do
+      it "検索キーワードを含むタスクが絞り込まれる" do
+        expect(Task.title_like('task')).to include(task)
+        expect(Task.title_like('task')).to include(third_task)
+        expect(Task.title_like('task')).not_to include(second_task)
+        expect(Task.title_like('task').count).to eq 2
+      end
+    end
+    context 'scopeメソッドでステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        expect(Task.progress('未着手')).to include(task)
+        expect(Task.progress('未着手')).not_to include(second_task)
+        expect(Task.progress('未着手').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        expect(Task.title_like('task').progress('未着手')).to include(task)
+        expect(Task.title_like('task').progress('未着手')).not_to include(third_task)
+        expect(Task.title_like('task').progress('未着手').count).to eq 1
+      end
+    end
+  end
 end
