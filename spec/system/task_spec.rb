@@ -5,13 +5,18 @@ def basic_pass(path)
   visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
 end
 RSpec.describe 'タスク管理機能', type: :system do
+  user = FactoryBot.create(:user)
   let!(:task) { 
-    FactoryBot.create(:task, title: 'タスク１', progress: "未着手", priority:"低", expired_at: DateTime.new.strftime('2021-09-03 00:00:00'))
-    FactoryBot.create(:task, title: 'タスク２', progress: "着手中", priority:"中", expired_at: DateTime.new.strftime('2021-09-02 00:00:00'))
-    FactoryBot.create(:task, title: 'タスク３', progress: "完了", priority:"高", expired_at: DateTime.new.strftime('2021-09-01 00:00:00')) 
+    FactoryBot.create(:task, title: 'タスク１', progress: "未着手", priority:"低", expired_at: DateTime.new.strftime('2021-09-03 00:00:00'), user: user)
+    FactoryBot.create(:task, title: 'タスク２', progress: "着手中", priority:"中", expired_at: DateTime.new.strftime('2021-09-02 00:00:00'), user: user)
+    FactoryBot.create(:task, title: 'タスク３', progress: "完了", priority:"高", expired_at: DateTime.new.strftime('2021-09-01 00:00:00'), user: user)
   }
   before do 
-    basic_pass visit tasks_path
+    basic_pass visit new_session_path
+    fill_in "session[email]", with:"user@ex.jp"
+    fill_in "session[password]", with:"11111111"
+    find(".login_btn").click
+    visit tasks_path
   end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
@@ -91,8 +96,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
-        task1 = FactoryBot.create(:task, title: '詳細表示機能テスト用タスク')
-        FactoryBot.create(:task, title: 'task2')
+        task1 = FactoryBot.create(:task, title: '詳細表示機能テスト用タスク', user_id: 1)
         basic_pass visit tasks_path
         #all('tbody tr td')[2].click_on '詳細'
         find(".show-btn#{task1.id}").click
