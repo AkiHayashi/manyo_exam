@@ -1,0 +1,22 @@
+<h1>管理者画面：ユーザー登録</h1>
+<%= form_with(model: @user, url: admin_users_path, local: true) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @user.errors.count %> 件のエラーがあります。<%= @user.user_name %> さんのアカウントを作成できませんでした。</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.label :user_name %>
+  <%= f.text_field :user_name %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.submit "アカウントを作成する" %>
+<% end %>

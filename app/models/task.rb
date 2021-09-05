@@ -10,4 +10,5 @@ class Task < ApplicationRecord
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") }
   scope :progress, -> (progress) { where(progress: progress) }
   paginates_per 5
+  belongs_to :user
 end
