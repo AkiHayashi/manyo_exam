@@ -1,7 +1,10 @@
 class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { maximum: 300
-  }
+  validates :description, presence: true, length: { maximum: 300}
+  validates :expired_at, presence: true
+  validates :progress, presence: true
+  validates :priority, presence: true
+
   enum progress: {未着手:0, 着手中:1, 完了:2}
   enum priority: {低:0, 中:1, 高:2}
   scope :sorted, -> { order(created_at: "DESC") }
