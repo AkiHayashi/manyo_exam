@@ -1,14 +1,14 @@
 require 'rails_helper'
-def basic_pass(path)
-  username = ENV["BASIC_AUTH_NAME"] 
-  password = ENV["BASIC_AUTH_PASSWORD"]
-  visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
-end
+# def basic_pass(path)
+#   username = ENV["BASIC_AUTH_NAME"] 
+#   password = ENV["BASIC_AUTH_PASSWORD"]
+#   visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
+# end
 RSpec.describe 'user function', type: :system do
   let!(:user){FactoryBot.create(:user)}
   let!(:admin_user){FactoryBot.create(:admin_user)}
   before do
-    basic_pass visit root_path
+    visit root_path
   end
   describe 'user registration ' do
     context 'register new user' do

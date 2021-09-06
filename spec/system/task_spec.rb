@@ -96,7 +96,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
-        task1 = FactoryBot.create(:task, title: '詳細表示機能テスト用タスク', user_id: 1)
+        task1 = FactoryBot.create(:task, title: '詳細表示機能テスト用タスク', user: user)
         basic_pass visit tasks_path
         #all('tbody tr td')[2].click_on '詳細'
         find(".show-btn#{task1.id}").click
