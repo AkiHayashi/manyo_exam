@@ -1,3 +1,5 @@
+
+<%= form_with(model: @task, local:true) do |form| %>
 <% if task.errors.any? %>
   <div id="error_explanation">
     <h2><%= task.errors.count %>件のエラーがあります</h2>
@@ -9,7 +11,6 @@
     </ul>
   </div>
 <% end %>
-<%= form_with(model: @task, local:true) do |form| %>
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -36,7 +37,7 @@
   </div>
 
   <div class="field">
-  <% @labels.each do |label| %>
+  <% Label.all.each do |label| %>
       <% if action_name == 'new' || action_name == 'create' %>
         <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false}, label[:id], "" %>
         <%= form.label :label_ids, label.name, value: label[:id] %>
