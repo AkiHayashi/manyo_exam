@@ -18,12 +18,16 @@
 | title       | string    | 
 | description | string    | 
 | user_id(FK) | integer   |
+| priority    | integer   |
+| progress    | integer   |
+| expired_at  | datetime  |
+
 
 ## Labels
 
 | カラム名   | データ型 | 
-| ---------- | -------- | 
-| label_name | string   | 
+| -------- | ------ | 
+| name     | string | 
 
 
 ## Labellings
