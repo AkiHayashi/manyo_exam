@@ -1,15 +1,16 @@
-<% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= task.errors.count %>件のエラーがあります</h2>
 
-      <ul>
-      <% task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 <%= form_with(model: @task, local:true) do |form| %>
+<% if task.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= task.errors.count %>件のエラーがあります</h2>
+
+    <ul>
+    <% task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -33,6 +34,18 @@
   <div class="field">
     <%= form.label :優先順位 %>
     <%= form.select :priority, Task.priorities.keys %>
+  </div>
+
+  <div class="field">
+  <% Label.all.each do |label| %>
+      <% if action_name == 'new' || action_name == 'create' %>
+        <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false}, label[:id], "" %>
+        <%= form.label :label_ids, label.name, value: label[:id] %>
+      <% elsif action_name == 'edit' || action_name == 'update' %>
+        <%= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false}, label[:id], "" %>
+        <%= form.label :label_ids, label.name, value: label[:id] %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="actions">

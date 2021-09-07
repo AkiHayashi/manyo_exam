@@ -14,4 +14,6 @@ class Task < ApplicationRecord
   scope :progress, -> (progress) { where(progress: progress) }
   paginates_per 5
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
 end

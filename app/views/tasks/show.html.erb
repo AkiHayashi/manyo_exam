@@ -10,5 +10,12 @@
   <%= @task.description %>
 </p>
 
+<p>
+  <strong>タスクラベル:</strong>
+    <% @task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %>
+</p>
+
 <%= link_to '編集', edit_task_path(@task) %> |
 <%= link_to '戻る', tasks_path %>
