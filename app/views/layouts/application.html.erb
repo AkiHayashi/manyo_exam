@@ -10,15 +10,30 @@
   </head>
 
   <body>
-  <header>
-    <h1>
-      <%= link_to "TaskApp","/", class:"headline" %>
-    </h1>
-    <ul class = "nav-list"></ul>
-      <li class="nav-list-item"><%= link_to "Tasks",tasks_path, class:"list-item" %></li>
-      <li class="nav-list-item"><%= link_to "New Task",new_task_path, class:"list-item" %></li>
-  </header>
-
+    <header>
+      <h1>
+        <%= link_to "TaskApp","/", class:"headline" %>
+      </h1>
+      <ul class = "nav-list"></ul>
+        <li class="nav-list-item"><%= link_to "Tasks",tasks_path, class:"list-item" %></li>
+        <li class="nav-list-item"><%= link_to "New Task",new_task_path, class:"list-item" %></li>
+        <% if logged_in? %>
+          <li class="nav-list-item"><%= link_to "マイページ", user_path(current_user.id)%></li>
+          <li class="nav-list-item"><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
+          <% if current_user.admin?%>
+          <li class="nav-list-item"><%= link_to "ユーザー一覧", admin_users_path %></li>
+          <li class="nav-list-item"><%= link_to "ユーザー登録", new_admin_user_path %></li>
+          <% end %>
+        <% else %>
+          <li class="nav-list-item"><%= link_to "ユーザー登録", new_user_path %></li>
+          <li class="nav-list-item"><%= link_to "ログイン", new_session_path %></li>
+        <% end %>
+    </header>
+    <body>
+      <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+    </body>
     <%= yield %>
   </body>
 </html>

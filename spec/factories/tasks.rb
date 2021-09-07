@@ -4,6 +4,7 @@ FactoryBot.define do
     description { 'test_description' }
     progress {'未着手'}
     expired_at {'2021-08-30 00:00:00'}
+    association :user
   end
   factory :second_task, class: Task do
     title { 'test_title2' }

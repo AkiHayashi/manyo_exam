@@ -1,0 +1,21 @@
+<h1>ユーザー管理画面</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ユーザー名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.user_name %></td>
+      <td><%= user.tasks.count %></td>
+      <td><button type="button" class="btn btn-outline-dark"><%= link_to '更新', edit_admin_user_path(user.id), class: "edit_btn#{user.id}" %></button></td>
+      <td><button type="button" class="btn btn-outline-danger"><%= link_to '削除', admin_user_path(user.id), class: "delete_btn#{user.id}", method: :delete, data: { confirm: '本当に削除しますか?' } %></button></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
