@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy]
 
   def index
-    @tasks = Task.all.sorted
+    @tasks = current_user.tasks.sorted
     @tasks = @tasks.sort_expired if params[:sort_expired]
     @tasks = @tasks.sort_priority if params[:sort_priority]
     @tasks = @tasks.title_like(params[:title]) if params[:title].present?
@@ -23,14 +23,14 @@ class TasksController < ApplicationController
 
   def new
     if params[:back]
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
     else 
       @task = Task.new
     end
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: "タスク作成完了"
     else 

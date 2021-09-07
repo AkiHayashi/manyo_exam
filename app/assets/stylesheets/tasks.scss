@@ -4,9 +4,9 @@
 
 @import "bootstrap";
 
-
 a {
   text-decoration: none;
+  color: black;
 }
 
 * {
@@ -36,4 +36,8 @@ header .headline{
 .list-item{
   text-decoration: none;
   color:black
+}
+.notice{
+  color: crimson;
+  margin-bottom: 6px;
 }

@@ -15,15 +15,17 @@ describe 'タスクモデル機能', type: :model do
     end
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
       it 'バリデーションが通る' do
-        task = Task.new(title:'タスクテスト', description:'成功テスト')
+        user = FactoryBot.create(:model_test_user1)
+        task = Task.new(title:'タスクテスト', description:'成功テスト', expired_at: DateTime.new + 10, progress: "未着手", priority:"低",  user: user)
         expect(task).to be_valid
       end
     end
   end
   describe '検索機能' do
-    let!(:task) { FactoryBot.create(:task, title: 'task', progress:"未着手")}
-    let!(:second_task) { FactoryBot.create(:second_task, title: "sample", progress:"着手中") }
-    let!(:third_task) { FactoryBot.create(:third_task, title: "task", progress:"完了") }
+    user = FactoryBot.create(:model_test_user2)
+    let!(:task) { FactoryBot.create(:task, title: 'task', progress:"未着手", user: user)}
+    let!(:second_task) { FactoryBot.create(:second_task, title: "sample", progress:"着手中", user: user)}
+    let!(:third_task) { FactoryBot.create(:third_task, title: "task", progress:"完了", user: user)}
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         expect(Task.title_like('task')).to include(task)
