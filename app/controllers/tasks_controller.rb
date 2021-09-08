@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy]
-  # before_action :get_labels, only: %i[ new show edit update]
+  before_action :get_labels, only: %i[ new create show edit update]
 
   def index
     @tasks = current_user.tasks.sorted
@@ -71,7 +71,7 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
-  # def get_labels
-  #   @labels = Label.all
-  # end
+  def get_labels
+    @labels = Label.all
+  end
 end
